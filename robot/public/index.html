@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <!-- Page & Monaco styling -->
+        <link href="styles.css" rel="stylesheet"/>
+        <title>RoboML in Langium</title>
+
+        <script src="https://cdn.jsdelivr.net/npm/p5@1.7.0/lib/p5.js"></script>
+        <!-- <script src="simulator/libraries/p5.js"></script> -->
+        <script src="simulator/libraries/p5.sound.min.js"></script>
+    </head>
+    <body>
+        <h1>RoboML in Langium</h1>
+        <div id="buttons">
+            <input class="build" type="button" value="Parse and Validate" onclick="window.parseAndValidate()">
+            <input class="build" type="button" value="Execute Simulation" onclick="window.execute()">
+            <input class="build" type="button" value="Restart Simulation" onclick="window.resetSimulation()">
+            <input class="build" type="button" value="Clear Data" onclick="window.setup()">
+        </div>
+
+        <div id="page-wrapper">
+            <div class="editor">
+                <div class="wrapper">
+                    <!-- Monaco Root -->
+                    <div id="monaco-editor-root"></div>
+                </div>
+            </div>
+            <div class="simulator" id="simulator-wrapper">
+                <canvas id="simulator"></canvas>
+            </div>
+        </div>
+
+        <div id="errorModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>RoboML Type checking errors</h2>
+                </div>
+                <div class="modal-body"></div>
+            </div>
+        </div>
+
+        <div id="validModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>RoboML Type checking validation</h2>
+                </div>
+                <div class="modal-body">
+                    Your code is correctly typed.
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p style="font-style:italic">Powered by</p>
+            <img width="125" src="https://langium.org/assets/langium_logo_w_nib.svg" alt="Langium">
+        </footer>
+        <!-- Monaco Configuration -->
+        <script type="module" src="setup.js"></script>
+        <script src="simulator/wall.js"></script>
+        <script src="simulator/block.js"></script>
+        <script src="simulator/robot.js"></script>
+        <script src="simulator/sketch.js"></script>
+        <script>
+            // Import Monaco Editor dynamically
+            const loadMonaco = async () => {
+                if (typeof monaco === 'undefined') {
+                    const monacoLoaderUrl = 'https://unpkg.com/monaco-editor@0.37.1/min/vs/loader.js';
+                    await new Promise((resolve, reject) => {
+                        const script = document.createElement('script');
+                        script.src = monacoLoaderUrl;
+                        script.onload = resolve;
+                        script.onerror = reject;
+                        document.head.appendChild(script);
+                    });
+
+                    // Configure Monaco loader
+                    require.config({ paths: { vs: 'https://unpkg.com/monaco-editor@0.37.1/min/vs' } });
+                }
+
+                // Initialize Monaco editor
+                require(['vs/editor/editor.main'], () => {
+                    monaco.editor.create(document.getElementById('monaco-editor-root'), {
+                        value: `let void entry () {\n    var number count = 0\n    loop count < 5\n    {\t\n        setSpeed(500 * (count + 1))\n        count = count + 1\n        square(count)\n    }\n}\n\nlet void square(number factor){\n    Forward 500 * factor\n    Clock 90\n    Forward 500 * factor\n    Clock 90\n    Forward 500 * factor\n    Clock 90\n    Forward 500 * factor\n    Clock 90\n}`,
+                        language: 'plaintext',
+                        theme: 'vs-dark',
+                    });
+                });
+            };
+
+            // Load Monaco editor on page load
+            window.addEventListener('load', () => {
+                loadMonaco();
+            });
+
+            // Modals for TypeChecking
+            var errorModal = document.getElementById("errorModal");
+            var validModal = document.getElementById("validModal");
+            var closeError = document.querySelector("#errorModal .close");
+            var closeValid = document.querySelector("#validModal .close");
+
+            closeError.onclick = function() {
+                errorModal.style.display = "none";
+            };
+            closeValid.onclick = function() {
+                validModal.style.display = "none";
+            };
+            window.onclick = function(event) {
+                if (event.target == validModal) {
+                    validModal.style.display = "none";
+                }
+                if (event.target == errorModal) {
+                    errorModal.style.display = "none";
+                }
+            };
+
+            // Global Functions
+            window.parseAndValidate = () => {
+                console.info('Parsing and validating current code...');
+                // TODO: Implement parsing and validation logic
+            };
+
+            window.execute = () => {
+                console.info('Executing current code...');
+                // TODO: Implement execution logic
+            };
+
+            window.resetSimulation = () => {
+                console.info('Restarting simulation...');
+                // TODO: Implement reset logic
+            };
+
+            window.setup = () => {
+                console.info('Clearing data...');
+                // TODO: Implement clear data logic
+            };
+        </script>
+    </body>
+</html>

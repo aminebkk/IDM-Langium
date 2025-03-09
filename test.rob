@@ -1,0 +1,24 @@
+let void entry () {
+    setSpeed(150 in mm)
+    var int count = 0
+    while (count < 5 && TRUE )
+    {	
+        count = count + 1
+        square()
+    }
+    if (FALSE)
+        setSpeed(5 in cm)
+    else
+        setSpeed(4 in cm)
+}
+
+let void square(){
+    Forward 30 in cm
+    Clock 90
+    Forward 300 in mm
+    Clock 90
+    Forward 30 in cm
+    Clock 90
+    Forward 300 in mm
+    Clock 90
+}

@@ -1,0 +1,165 @@
+html, body {
+    background: rgb(33, 33, 33);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: white;
+    margin: 0;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px; /* Add spacing below the title */
+}
+
+footer {
+    text-align: center;
+    color: #444;
+    font-size: 1rem;
+    margin-top: 20px; /* Add spacing above the footer */
+}
+
+/* Buttons */
+#buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px; /* Add spacing below the buttons */
+}
+
+.build {
+    margin: 5px 10px;
+    width: 200px;
+    height: 30px;
+    background: none;
+    border: 2px solid #fff;
+    color: #fff;
+    transition: 0.3s;
+    font-size: 1rem;
+    border-radius: 4px;
+}
+
+.build:hover {
+    border-color: #6cf;
+    color: #6cf;
+    cursor: pointer;
+}
+
+.build:active {
+    color: #fff;
+    border-color: #fff;
+}
+
+/* Page Wrapper */
+#page-wrapper {
+    display: flex;
+    max-width: 1600px;
+    margin: 0 auto; /* Center the wrapper */
+    padding: 10px;
+    gap: 20px; /* Add spacing between editor and simulator */
+    min-height: 60vh;
+    align-items: stretch; /* Ensure both sections stretch to the same height */
+}
+
+#page-wrapper .editor,
+#page-wrapper .simulator {
+    flex: 1; /* Both sections take up equal space */
+    min-height: 400px; /* Minimum height for both sections */
+    border: 2px solid #6cf; /* Add a subtle border */
+    border-radius: 8px; /* Rounded corners */
+    overflow: hidden; /* Prevent content from overflowing */
+}
+
+/* Monaco Editor */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#monaco-editor-root {
+    flex-grow: 1; /* Fill the editor container */
+}
+
+/* Simulator */
+.simulator {
+    position: relative;
+    width: 100%; /* Take full width of its container */
+    height: 100%; /* Take full height of its container */
+    background-color: #222; /* Dark background for contrast */
+    overflow: hidden; /* Prevent content from overflowing */
+}
+
+canvas {
+    display: block;
+    width: 100%; /* Fill the simulator container */
+    height: 100%; /* Fill the simulator container */
+}
+
+/* Typechecking Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    position: relative;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 70%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.modal-header {
+    padding: 2px 16px;
+    color: white;
+}
+
+#errorModal .modal-header { background-color: #880000; }
+#validModal .modal-header { background-color: #008800; }
+
+.modal-body {
+    padding: 2px 16px;
+    color: #222222;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@media (max-width: 1000px) {
+    #page-wrapper {
+        flex-direction: column; /* Stack editor and simulator vertically */
+    }
+
+    #page-wrapper .editor,
+    #page-wrapper .simulator {
+        width: 100%; /* Full width on smaller screens */
+        min-height: 300px; /* Reduced height for mobile */
+    }
+
+    .build {
+        width: 150px; /* Smaller buttons for mobile */
+    }
+
+    .modal-content {
+        width: 90%; /* Wider modal for better readability on mobile */
+    }
+}
